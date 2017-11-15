@@ -14,7 +14,7 @@ module dataMemory
     end
   end
   
-  initial $readmemh("dataMemory.dat", mem);
+  //initial $readmemh("dataMemory.dat", mem);
     
   assign DataOut = mem[Addr];
 endmodule

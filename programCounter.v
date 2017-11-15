@@ -7,6 +7,9 @@ input[31:0]         newCount,
 input               wrenable,
 input               clk
 );
+	initial begin
+		currentCount = -4;
+	end
 
     always @(posedge clk) begin
         if(wrenable) begin

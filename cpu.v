@@ -84,6 +84,12 @@ mux4input registerMux2(.out(registerMux2Out), .address(RegAddrWrSel), .in0(rd), 
 regfile register(.ReadData1(regOut1), .ReadData2(regOut2), .WriteData(registerMux1Out), .ReadRegister1(rs), .ReadRegister2(rt), .WriteRegister(registerMux2Out), .RegWrite(RegWrEn), .Clk(clk));
 mux2input aluMux(aluMuxOut, ALUImm, regOut2, instrMemImm);
 
+initial begin
+    BranchControl = 1'b1;
+    AdderValControl = 1'b0;
+    PCSel = 2'b10;
+end
+
 always @(posedge clk) begin
     //Decoding op code to alu operation command
     if (opCode == 6'h23) begin //lw
@@ -205,7 +211,7 @@ always @(posedge clk) begin
 end
 
 ALU alu(.result(aluOut), .carryout(carryout), .zero(zero), .overflow(overflow), .operandA(regOut1), .operandB(aluMuxOut), .command(command));
-mux2input branchControlMux(branchControlOut, BranchControl, zero, 1'b0);
+mux2input #(1) branchControlMux(branchControlOut, BranchControl, ~zero, 1'b1);
 dataMemory dataMem(.clk(clk), .regWE(MemWrEn), .Addr(aluOut), .DataIn(regOut2), .DataOut(dataMemOut));
 
 endmodule

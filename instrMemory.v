@@ -15,7 +15,7 @@ module instrMemory
     end
   end
   
-  initial $readmemh("instrMemory.dat", mem);
+  initial $readmemh("subTest.dat", mem);
     
-  assign DataOut = mem[Addr];
+  assign DataOut = mem[Addr>>2];
 endmodule
