@@ -2,7 +2,8 @@
 
 module register
 #(
-    parameter width  = 32
+    parameter width  = 32,
+    parameter initialValue = 32'h00000000
 )
 (
 	output reg[width-1:0]  	q,         // data output
@@ -10,6 +11,10 @@ module register
 	input	 				wrenable,  // write enable
 	input       			clk        // clock
 );
+    initial begin
+        q <= initialValue;
+    end
+
     always @(posedge clk) begin
         if(wrenable) begin
             q <= d;

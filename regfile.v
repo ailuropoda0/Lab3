@@ -38,12 +38,22 @@ input		Clk		// Clock (Positive Edge Triggered)
   generate
   	genvar i;
   	for (i=1; i<32; i=i+1) begin: generate_register
-  		register register32bit(
-  			.q(regout[i]),
-  			.d(WriteData),
-  			.wrenable(wrenable[i]),
-  			.clk(Clk)
-  		);
+  		if (i == 29) begin //initialize $sp(stack point) value to 0x00003ffc
+        register #(32, 16380) register32bit(
+        .q(regout[i]),
+        .d(WriteData),
+        .wrenable(wrenable[i]),
+        .clk(Clk)
+      );
+      end
+      else begin
+        register register32bit(
+        .q(regout[i]),
+        .d(WriteData),
+        .wrenable(wrenable[i]),
+        .clk(Clk)
+      );
+      end
   	end
   endgenerate
 
@@ -60,6 +70,5 @@ input		Clk		// Clock (Positive Edge Triggered)
 	regout[20], regout[21], regout[22], regout[23], regout[24], regout[25], regout[26], regout[27], regout[28], regout[29], 
 	regout[30], regout[31]
  );
-
 
 endmodule

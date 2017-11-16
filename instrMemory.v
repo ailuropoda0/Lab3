@@ -1,10 +1,11 @@
 //Instruction memory
 module instrMemory
 (
-  input clk, regWE,
+  input clk, regWE, // clock, register Write Enable
   input[9:0] Addr,
   input[31:0] DataIn,
   output[31:0]  DataOut,
+  // control signal
     output reg RegWrEn,
     output reg MemWrEn,
     output reg[1:0] PCSel,
@@ -34,7 +35,7 @@ module instrMemory
  
   assign DataOut = mem[Addr>>2];
 
-    always @(posedge clk) begin 
+    always @(negedge clk) begin 
     //Decoding op code to alu operation command
     if (DataOut[31:26] == 6'h23) begin //lw
         RegWrEn <= 1'b1;
@@ -80,7 +81,7 @@ module instrMemory
         RegWrEn <= 1'b1;
         MemWrEn <= 1'b0;
         PCSel <= 2'b00;
-        AdderValControl <= 1'b1;
+        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b11;
         RegAddrWrSel <= 2'b11;
         BranchControl <= 1'b1;
