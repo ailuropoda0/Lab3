@@ -9,7 +9,6 @@ module instrMemory
     output reg RegWrEn,
     output reg MemWrEn,
     output reg[1:0] PCSel,
-    output reg AdderValControl,
     output reg[1:0] RegDataWrSel,
     output reg[1:0] RegAddrWrSel,
     output reg BranchControl,
@@ -29,7 +28,6 @@ module instrMemory
    
   initial begin
     BranchControl = 1'b1;
-    AdderValControl = 1'b0;
     PCSel = 2'b10;
   end
  
@@ -41,7 +39,6 @@ module instrMemory
         RegWrEn <= 1'b1;
         MemWrEn <= 1'b0;
         PCSel <= 2'b10;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b01;
         RegAddrWrSel <= 2'b01;
         BranchControl <= 1'b1;
@@ -51,7 +48,6 @@ module instrMemory
         RegWrEn <= 1'b0;
         MemWrEn <= 1'b1;
         PCSel <= 2'b10;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b01;
         RegAddrWrSel <= 2'b01;
         BranchControl <= 1'b1;
@@ -61,7 +57,6 @@ module instrMemory
         RegWrEn <= 1'b0;
         MemWrEn <= 1'b0;
         PCSel <= 2'b00;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b01;
         RegAddrWrSel <= 2'b01;
         BranchControl <= 1'b1;
@@ -71,7 +66,6 @@ module instrMemory
         RegWrEn <= 1'b0;
         MemWrEn <= 1'b0;
         PCSel <= 2'b01;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b01;
         RegAddrWrSel <= 2'b01;
         BranchControl <= 1'b1;
@@ -81,29 +75,26 @@ module instrMemory
         RegWrEn <= 1'b1;
         MemWrEn <= 1'b0;
         PCSel <= 2'b00;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b11;
         RegAddrWrSel <= 2'b11;
         BranchControl <= 1'b1;
         ALUImm <= 1'b1;
     end
     if (DataOut[31:26] == 6'd5) begin //bne
+        command <= 3'd1;
         RegWrEn <= 1'b0;
         MemWrEn <= 1'b0;
         PCSel <= 2'b10;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b01;
         RegAddrWrSel <= 2'b01;
         BranchControl <= 1'b0;
-        ALUImm <= 1'b1;
-        command <= 3'd1;
+        ALUImm <= 1'b0;
     end
     if (DataOut[31:26] == 6'd14) begin //xori
         command <= 3'd2;
         RegWrEn <= 1'b1;
         MemWrEn <= 1'b0;
         PCSel <= 2'b10;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b00;
         RegAddrWrSel <= 2'b01;
         BranchControl <= 1'b1;
@@ -114,7 +105,6 @@ module instrMemory
         RegWrEn <= 1'b1;
         MemWrEn <= 1'b0;
         PCSel <= 2'b10;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b00;
         RegAddrWrSel <= 2'b01;
         BranchControl <= 1'b1;
@@ -125,7 +115,6 @@ module instrMemory
         RegWrEn <= 1'b1;
         MemWrEn <= 1'b0;
         PCSel <= 2'b10;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b00;
         RegAddrWrSel <= 2'b00;
         BranchControl <= 1'b1;
@@ -136,7 +125,6 @@ module instrMemory
         RegWrEn <= 1'b1;
         MemWrEn <= 1'b0;
         PCSel <= 2'b10;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b00;
         RegAddrWrSel <= 2'b00;
         BranchControl <= 1'b1;
@@ -147,7 +135,6 @@ module instrMemory
         RegWrEn <= 1'b1;
         MemWrEn <= 1'b0;
         PCSel <= 2'b10;
-        AdderValControl <= 1'b0;
         RegDataWrSel <= 2'b00;
         RegAddrWrSel <= 2'b00;
         BranchControl <= 1'b1;
